@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Package web app for Windows
         run: |
-          mkdir -p dist/Let'sStudy-Windows
-          cp index.html styles.css app.js manifest.webmanifest sw.js icon.svg dist/Let'sStudy-Windows/
-          cp README.md dist/Let'sStudy-Windows/
-          zip -r "Let'sStudy-Windows.zip" dist/Let'sStudy-Windows
+          mkdir -p dist/letsstudy-windows
+          cp index.html styles.css app.js manifest.webmanifest sw.js icon.svg dist/letsstudy-windows/
+          cp README.md dist/letsstudy-windows/
+          zip -r "Let'sStudy-Windows.zip" dist/letsstudy-windows
       - uses: actions/upload-artifact@v4
         with:
           name: letsstudy-windows
@@ -27,14 +27,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Build Android package from the installable PWA
+      - name: Build signed Android APK from the installable PWA
         run: |
-          npx --yes pwa-builder-sdk package https://vgmi.github.io/letsstudy.com/ \
-            --platform android \
-            --out ./dist/pwa
-          apk="$(find ./dist/pwa -type f -name '*.apk' | head -n 1)"
-          test -n "$apk"
-          cp "$apk" letsstudy-android.apk
+          yes "" | npx --yes @bubblewrap/cli init \
+            --manifest=https://vgmi.github.io/letsstudy.com/manifest.webmanifest \
+            --directory=./android
+          cd android
+          BUBBLEWRAP_KEYSTORE_PASSWORD="$GITHUB_SHA" \
+            BUBBLEWRAP_KEY_PASSWORD="$GITHUB_SHA" \
+            npx --yes @bubblewrap/cli build --skipPwaValidation
+          cp app-release-signed.apk ../letsstudy-android.apk
       - uses: actions/upload-artifact@v4
         with:
           name: letsstudy-android
