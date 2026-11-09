@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d1726" />
+    <meta name="description" content="Let'sStudy is a calm workspace for planning tasks, tracking progress, and recording real work." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Let'sStudy — Work clearly. Learn continuously.</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="Let'sStudy home">
+          <span class="brand-mark">L</span>
+          <span>Let's<span>Study</span></span>
+        </a>
+        <p class="eyebrow">YOUR WORKSPACE</p>
+        <nav class="nav-list">
+          <a class="nav-item active" href="#dashboard"><span>⌂</span> Dashboard</a>
+          <a class="nav-item" href="#tasks"><span>✓</span> My tasks</a>
+          <a class="nav-item" href="#logs"><span>✦</span> Work log</a>
+          <a class="nav-item" href="#focus"><span>◷</span> Focus</a>
+        </nav>
+        <div class="sidebar-footer">
+          <button class="sidebar-link" id="installButton" hidden><span>↥</span> Install app</button>
+          <button class="sidebar-link" id="themeButton"><span>☼</span> Toggle theme</button>
+          <a class="sidebar-link" href="README.md"><span>?</span> Help & downloads</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu" id="menuButton" aria-label="Open navigation">☰</button>
+          <div class="breadcrumbs"><span>Workspace</span><b>/</b> Personal</div>
+          <div class="top-actions">
+            <button class="icon-button" id="focusButton" title="Start focus timer" aria-label="Start focus timer">◷</button>
+            <button class="avatar" title="Profile">V</button>
+          </div>
+        </header>
+
+        <section class="page" id="dashboard">
+          <div class="hero-row">
+            <div>
+              <p class="eyebrow">MONDAY, 09 NOVEMBER 2026</p>
+              <h1>Make today <em>count.</em></h1>
+              <p class="lede">Plan what matters, capture what happened, and keep moving with clarity.</p>
+            </div>
+            <button class="primary-button" id="quickAddButton">＋ Add task</button>
+          </div>
+
+          <div class="stats-grid" aria-label="Workspace summary">
+            <article class="stat-card accent"><span>Today's progress</span><strong id="progressValue">0%</strong><small id="progressLabel">0 of 0 tasks complete</small><div class="progress"><i id="progressBar"></i></div></article>
+            <article class="stat-card"><span>Open tasks</span><strong id="openCount">0</strong><small>Across your workspace</small></article>
+            <article class="stat-card"><span>Focus time</span><strong id="focusTotal">00:00</strong><small>This session</small></article>
+          </div>
+
+          <div class="content-grid">
+            <section class="panel tasks-panel" id="tasks">
+              <div class="panel-heading"><div><p class="eyebrow">UP NEXT</p><h2>Today's tasks</h2></div><button class="text-button" id="clearCompleted">Clear completed</button></div>
+              <div class="filters" role="group" aria-label="Task filters">
+                <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="open">Open</button><button class="filter" data-filter="done">Completed</button>
+              </div>
+              <div id="taskList" class="task-list"></div>
+              <div id="emptyTasks" class="empty-state" hidden><span>✦</span><h3>Nothing on your list</h3><p>Add a task and give your day a clear next step.</p></div>
+            </section>
+
+            <section class="panel log-panel" id="logs">
+              <div class="panel-heading"><div><p class="eyebrow">REFLECTION</p><h2>Daily work log</h2></div><span class="date-pill">Today</span></div>
+              <form id="logForm">
+                <label for="logTitle">What did you work on?</label>
+                <input id="logTitle" maxlength="80" placeholder="e.g. Revised the physics practical" required />
+                <label for="logBody">A quick note <span>(optional)</span></label>
+                <textarea id="logBody" rows="5" maxlength="500" placeholder="Capture progress, blockers, or your next step..."></textarea>
+                <button class="secondary-button" type="submit">Save to work log <span>↗</span></button>
+              </form>
+              <div id="logList" class="log-list"></div>
+            </section>
+          </div>
+
+          <section class="focus-card" id="focus">
+            <div><p class="eyebrow">FOCUS ROOM</p><h2>Protect your attention.</h2><p>Set a short focus session and make one meaningful thing easier to finish.</p></div>
+            <div class="timer"><strong id="timerValue">25:00</strong><button class="timer-button" id="timerButton">Start focus</button></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="taskDialog">
+      <form method="dialog" id="taskForm" class="dialog-card">
+        <button class="close-button" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">QUICK CAPTURE</p><h2>Add a task</h2>
+        <label for="taskTitle">Task title</label><input id="taskTitle" maxlength="100" placeholder="What needs to happen?" required />
+        <label for="taskPriority">Priority</label><select id="taskPriority"><option value="high">High priority</option><option value="normal" selected>Normal priority</option><option value="low">Low priority</option></select>
+        <button class="primary-button" value="default">Create task</button>
+      </form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>

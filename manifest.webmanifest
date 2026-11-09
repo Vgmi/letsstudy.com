@@ -1,0 +1,10 @@
+{
+  "name": "Let'sStudy",
+  "short_name": "Let'sStudy",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#0d1726",
+  "description": "A calm workspace for planning tasks, tracking progress, and recording real work.",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
